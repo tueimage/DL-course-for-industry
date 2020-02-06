@@ -26,6 +26,7 @@ All course materials were prepared by [Mitko Veta](https://scholar.google.nl/cit
 * Mini-competition: segmentation of cardiac MR images
 
 ## Other resources
+Some other resources that you might find useful after completing this course.
 
 ### Other courses and materials from our group
 * [Educational module 'Essential Skills for Machine Learning'](https://github.com/tueimage/essential-skills)
