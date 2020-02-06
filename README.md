@@ -22,3 +22,10 @@ Two day introductory deep learning course for industry.
 ### Practice
 * Image segmentation with U-Net
 * Mini-competition: segmentation of cardiac MR images
+
+## Other resources
+
+### Other courses and materials from our group
+* [Educational module 'Essential Skills for Machine Learning'](https://github.com/tueimage/essential-skills)
+* [8DM40 Machine Learning in Medical Imaging and Biology course](https://github.com/tueimage/8dm40-machine-learning)
+* [8P361 Project Imaging course materials](https://github.com/tueimage/8p361-project-imaging)
