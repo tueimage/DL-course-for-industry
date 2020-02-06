@@ -33,3 +33,10 @@ Two day introductory deep learning course for industry.
 ### Other higly recommended online courses
 * [Oxford Machine Learning course by Nando de Freitas](https://www.cs.ox.ac.uk/people/nando.defreitas/machinelearning/)
 * [Stanford CS231n Convolutional Neural Networks for Visual Recognition course](http://cs231n.github.io/)
+* [Stanford CS229 Machine Learning course](http://cs229.stanford.edu/)
+
+### Books
+* [Elements of Statistical Learning](https://web.stanford.edu/~hastie/ElemStatLearn/)
+* [Deep Learning](https://www.deeplearningbook.org/)
+
+
