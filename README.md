@@ -8,9 +8,9 @@ All course materials were prepared by [Mitko Veta](https://scholar.google.nl/cit
 * [Convolutional neural networks](lectures/Machine%20learning%20fundamentals.pdf)
 
 ### Practice
-* Linear and logistic regression in Keras
-* Fully connected neural networks for image classification in Keras
-* Convolutional neural networks for image classification in Keras
+* [Linear and logistic regression in Keras](exercises/ex1.ipynb)
+* [Fully connected neural networks for image classification in Keras](exercises/ex2.ipynb)
+* [Convolutional neural networks for image classification in Keras](exercises/ex3.ipynb)
 
 ## Day 2
 
