@@ -27,5 +27,9 @@ Two day introductory deep learning course for industry.
 
 ### Other courses and materials from our group
 * [Educational module 'Essential Skills for Machine Learning'](https://github.com/tueimage/essential-skills)
-* [8DM40 Machine Learning in Medical Imaging and Biology course](https://github.com/tueimage/8dm40-machine-learning)
-* [8P361 Project Imaging course materials](https://github.com/tueimage/8p361-project-imaging)
+* [8P361 Project Imaging bachelor course](https://github.com/tueimage/8p361-project-imaging)
+* [8DM40 Machine Learning in Medical Imaging and Biology master course](https://github.com/tueimage/8dm40-machine-learning)
+
+### Other higly recommended online courses
+* [Oxford Machine Learning course by Nando de Freitas](https://www.cs.ox.ac.uk/people/nando.defreitas/machinelearning/)
+* [Stanford CS231n Convolutional Neural Networks for Visual Recognition course](http://cs231n.github.io/)
