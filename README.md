@@ -39,4 +39,7 @@ Two day introductory deep learning course for industry.
 * [Elements of Statistical Learning](https://web.stanford.edu/~hastie/ElemStatLearn/)
 * [Deep Learning](https://www.deeplearningbook.org/)
 
+### Review papers
+* [A survey on deep learning in medical image analysis](https://www.sciencedirect.com/science/article/pii/S1361841517301135?via%3Dihub)
+* [High-performance medicine: the convergence of human and artificial intelligence](https://www.nature.com/articles/s41591-018-0300-7)
 
