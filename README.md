@@ -9,6 +9,16 @@ Two day introductory deep learning course for industry.
 * [Convolutional neural networks](lectures/Machine%20learning%20fundamentals.pdf)
 
 ### Practice
-*
-*
-*
+* Linear and logistic regression in Keras
+* Fully connected neural networks for image classification in Keras
+* Convolutional neural networks for image classification in Keras
+
+## Day 2
+
+### Theory
+* Experimental methodology for training of (deep) machine learning models
+* Modern neural network architectures
+
+### Practice
+* Image segmentation with U-Net
+* Mini-competition: segmentation of cardiac MR images
