@@ -5,8 +5,8 @@ Two day introductory deep learning course for industry.
 
 ### Theory
 * [Machine learning fundamentals](lectures/Convolutional%20neural%20networks.pdf)
-* [From linear models to deep neural networks]
-* [Convolutional neural networks]
+* [From linear models to deep neural networks](lectures/Deep%20neural%20networks.pdf)
+* [Convolutional neural networks](lectures/Machine%20learning%20fundamentals.pdf)
 
 ### Practice
 *
