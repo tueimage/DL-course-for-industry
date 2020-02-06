@@ -1,6 +1,8 @@
 # Deep learning course for industry
 Two day introductory deep learning course for industry.
 
+All course materials were prepared by [Mitko Veta](https://scholar.google.nl/citations?user=bfbic-IAAAAJ&hl=en) and [Maxime Lafarge](https://scholar.google.nl/citations?user=XyOz2lwAAAAJ&hl=en).
+
 ## Day 1
 
 ### Theory
