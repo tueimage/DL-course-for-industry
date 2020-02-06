@@ -1,4 +1,4 @@
-# DL-course-for-industry
+# Deep learning course for industry
 Two day introductory deep learning course for industry.
 
 ## Day 1
