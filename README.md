@@ -45,3 +45,5 @@ All course materials were prepared by [Mitko Veta](https://scholar.google.nl/cit
 * [A survey on deep learning in medical image analysis](https://www.sciencedirect.com/science/article/pii/S1361841517301135?via%3Dihub)
 * [High-performance medicine: the convergence of human and artificial intelligence](https://www.nature.com/articles/s41591-018-0300-7)
 
+### Datasets
+A list of datasets published as medical image analysis challenges can be found [here](https://grand-challenge.org/challenges/).
