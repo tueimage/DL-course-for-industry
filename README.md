@@ -3,9 +3,9 @@ All course materials were prepared by [Mitko Veta](https://scholar.google.nl/cit
 ## Day 1
 
 ### Theory
-* [Machine learning fundamentals](lectures/Convolutional%20neural%20networks.pdf)
+* [Machine learning fundamentals](lectures/Machine%20learning%20fundamentals.pdf)
 * [From linear models to deep neural networks](lectures/Deep%20neural%20networks.pdf)
-* [Convolutional neural networks](lectures/Machine%20learning%20fundamentals.pdf)
+* [Convolutional neural networks](lectures/Convolutional%20neural%20networks.pdf)
 
 ### Practice
 * [Linear and logistic regression in Keras](https://github.com/tueimage/DL-course-for-industry/blob/master/exercises/ex1.ipynb)
