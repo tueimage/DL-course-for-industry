@@ -48,4 +48,4 @@ A list of datasets published as medical image analysis challenges can be found [
 
 ### Videos
 
-The [Neural Networks](https://www.youtube.com/playlist?list=PLZHQObOWTQDNU6R1_67000Dx_ZCJB-3pi) video serios from the 3Blue1Brown YoutubeChannel.
+The [Neural Networks](https://www.youtube.com/playlist?list=PLZHQObOWTQDNU6R1_67000Dx_ZCJB-3pi) video series from the 3Blue1Brown YoutubeChannel.
