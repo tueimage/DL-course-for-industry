@@ -22,7 +22,7 @@ All course materials were prepared by [Mitko Veta](https://scholar.google.nl/cit
 * Image segmentation with U-Net
 * Mini-competition: segmentation of cardiac MR images
 
-## Other resources
+## Recommended resources
 Some other resources that you might find useful after completing this course or as a preparation.
 
 ### Other courses and materials from our group
@@ -45,3 +45,7 @@ Some other resources that you might find useful after completing this course or 
 
 ### Datasets
 A list of datasets published as medical image analysis challenges can be found [here](https://grand-challenge.org/challenges/).
+
+### Videos
+
+The [Neural Networks](https://www.youtube.com/playlist?list=PLZHQObOWTQDNU6R1_67000Dx_ZCJB-3pi) video serios from the 3Blue1Brown YoutubeChannel.
