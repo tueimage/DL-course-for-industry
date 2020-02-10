@@ -20,7 +20,7 @@ All course materials were prepared by [Mitko Veta](https://scholar.google.nl/cit
 
 ### Practice
 * [Image segmentation with U-Net](https://github.com/tueimage/DL-course-for-industry/blob/master/exercises/ex4.ipynb)
-* Mini-competition: segmentation of cardiac MR images
+* Mini-competition: segmentation of cardiac MR images (*see part 2 of previous exercise*)
 
 ## Recommended resources
 Some other resources that you might find useful after completing this course or as a preparation.
