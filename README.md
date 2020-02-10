@@ -19,7 +19,7 @@ All course materials were prepared by [Mitko Veta](https://scholar.google.nl/cit
 * [Modern neural network architectures](lectures/Modern%20architectures.pdf)
 
 ### Practice
-* Image segmentation with U-Net
+* [Image segmentation with U-Net](https://github.com/tueimage/DL-course-for-industry/blob/master/exercises/ex4.ipynb)
 * Mini-competition: segmentation of cardiac MR images
 
 ## Recommended resources
