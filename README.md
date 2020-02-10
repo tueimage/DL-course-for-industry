@@ -15,8 +15,8 @@ All course materials were prepared by [Mitko Veta](https://scholar.google.nl/cit
 ## Day 2
 
 ### Theory
-* [Experimental methodology for training of (deep) machine learning models](https://github.com/tueimage/DL-course-for-industry/blob/master/lectures/Experimental%20methodology.pdf)
-* [Modern neural network architectures](https://github.com/tueimage/DL-course-for-industry/blob/master/lectures/Modern%20architectures.pdf)
+* [Experimental methodology for training of (deep) machine learning models](lectures/Experimental%20methodology.pdf)
+* [Modern neural network architectures](lectures/Modern%20architectures.pdf)
 
 ### Practice
 * Image segmentation with U-Net
