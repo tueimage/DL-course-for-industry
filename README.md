@@ -1,5 +1,19 @@
 All course materials were prepared by [Mitko Veta](https://scholar.google.nl/citations?user=bfbic-IAAAAJ&hl=en) and [Maxime Lafarge](https://scholar.google.nl/citations?user=XyOz2lwAAAAJ&hl=en).
 
+# Half-day version
+
+### Theory
+
+* [Machine learning fundamentals](lectures/Half-day - Machine%20learning%20fundamentals.pdf)
+* [From linear models to deep neural networks](lectures/Half-day - Deep%20neural%20networks.pdf)
+* [Convolutional neural networks](lectures/Half-day - Convolutional%20neural%20networks.pdf)
+
+### Practice
+
+* Training neural networks in your web browser
+
+# Two-day version
+
 ## Day 1
 
 ### Theory
