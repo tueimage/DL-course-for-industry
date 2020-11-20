@@ -1,0 +1,350 @@
+\documentclass[notes]{beamer}          % print frame + notes
+%\documentclass[notes=only]{beamer}     % only notes
+%\documentclass{beamer}                 % only frames
+
+\usecolortheme{beaver}
+
+% Some commonly used packages
+% (copied mainly from the Utrecht University theme: https://www.overleaf.com/project/5c900fa3bd9930036341116a)
+\usepackage{ragged2e}  % `\justifying` text
+\usepackage{booktabs}  % Tables
+\usepackage{tabularx}
+\usepackage{tikz}      % Diagrams
+\usetikzlibrary{calc, shapes, backgrounds}
+\usepackage{amsmath, amssymb, amsfonts, amsthm}
+\usepackage{url}       % `\url`s
+\usepackage{listings}  % Code listings
+\usepackage{comment}
+\usepackage{mathtools}
+\usepackage{graphicx}
+\usepackage{subfig}
+\usepackage{bm}
+\usepackage{animate}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+}
+
+% Mainly math commands
+\newcommand{\vect}[1]{\bm{#1}}
+\usepackage{amsfonts}% to get the \mathbb alphabet
+\newcommand{\field}[1]{\mathbb{#1}}
+\newcommand{\C}{\field{C}}
+\newcommand{\R}{\field{R}}
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+\newcommand{\argmin}{\operatornamewithlimits{argmin}}
+\providecommand{\abs}[1]{\lvert#1\rvert}
+\providecommand{\norm}[1]{\lVert#1\rVert}
+
+% A variable used to exclude slides from the lecture version
+\newif\iffull
+\fullfalse
+%\fulltrue
+
+% Bibliography
+\usepackage[uniquename=init,giveninits=true,maxcitenames=1,style=authortitle-comp]{biblatex}
+\bibliography{lectures/references}
+
+%Information to be included in the title page:
+\title{Convolutional neural networks}
+\subtitle{Deep learning course for industry }
+\author{Mitko Veta}
+\institute{Eindhoven University of Technology
+
+Department of Biomedical Engineering}
+\date{2020}
+ 
+ 
+ 
+\begin{document}
+ 
+\frame{\titlepage}
+
+
+\begin{frame}
+\frametitle{Learning goals}
+\begin{itemize}
+    \item Demonstrate how deep neural networks can be modified to be more suitable for image data.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Images as inputs to a neural network}
+\begin{center}
+\includegraphics[width=0.75\textwidth]{figures/images_as_input_1.pdf} \\
+\end{center}
+\end{frame}
+
+\begin{frame}
+\frametitle{Images as inputs to a neural network}
+\begin{center}
+\includegraphics[width=0.75\textwidth]{figures/images_as_input_2.pdf} \\
+\end{center}
+\end{frame}
+
+\begin{frame}
+\frametitle{Images as inputs to a neural network}
+\begin{center}
+\includegraphics[width=0.75\textwidth]{figures/images_as_input_3.pdf} \\
+\end{center}
+\tiny{The biases $w_{i,0}$ are not shown.}
+\end{frame}
+
+\begin{frame}
+\frametitle{Images as inputs to a neural network}
+\begin{center}
+\includegraphics[width=0.75\textwidth]{figures/images_as_input_4.pdf} \\
+\end{center}
+\end{frame}
+
+\begin{frame}
+\frametitle{The number of parameters explodes with larger image sizes}
+\begin{center}
+\includegraphics[width=0.65\textwidth]{figures/images_as_input_5.pdf} \\
+\end{center}
+\pause
+$$\text{\# parameters} = (\text{height} \times \text{width} \times \text{\# channels} + 1) \times{\# neurons}$$
+
+\tiny{The ``$ + 1$'' comes from the biases $w_{i,0}$.}
+\end{frame}
+
+\begin{frame}
+\frametitle{Towards convolutional neural networks}
+Example (1-D image for simplicity): $5\times1$ input image, 3 hidden neurons.
+\begin{figure}[ht]
+        \begin{minipage}[b]{0.3\linewidth}
+            \centering
+            \includegraphics[width=\textwidth]{figures/towards_cnns_1.pdf}
+            full connectivity: 15 parameters
+        \end{minipage}
+        \hspace{0.25cm}
+        \pause
+        \begin{minipage}[b]{0.31\linewidth}
+            \centering
+            \includegraphics[width=\textwidth]{figures/towards_cnns_2.pdf}
+            sparse connectivity: 9 parameters
+        \end{minipage}
+        \hspace{0.25cm}
+        \pause
+        \begin{minipage}[b]{0.3\linewidth}
+            \centering
+            \includegraphics[width=\textwidth]{figures/towards_cnns_3.pdf}
+            shared weights: 3 parameters
+        \end{minipage}
+ \end{figure}
+ \tiny{Note: the poor biases are again, ignored, but there are three of them in each case}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Towards convolutional neural networks}
+Let the outputs of the three neurons be $\sigma(a_1), \sigma(a_2), \sigma(a_3)$. Then:
+\begin{center}
+\begin{minipage}[b]{0.3\linewidth}
+\includegraphics[width=\textwidth]{figures/towards_cnns_3.pdf}
+\end{minipage}
+\begin{minipage}[b]{0.45\linewidth}
+$$a_1 = x_1 \textcolor{red}{w_1} + x_2 \textcolor{green}{w_2} + x_3 \textcolor{blue}{w_3}$$
+$$a_2 = x_2 \textcolor{red}{w_1} + x_3 \textcolor{green}{w_2} + x_4 \textcolor{blue}{w_3}$$
+$$a_3 = x_3 \textcolor{red}{w_1} + x_4 \textcolor{green}{w_2} + x_5 \textcolor{blue}{w_3}$$
+\vspace{0.5cm}
+\end{minipage}
+\pause
+$$[a_1, a_2, a_3] = [x_1, x_2, x_3, x_4, x_5] * [\textcolor{blue}{w_3}, \textcolor{green}{w_2}, \textcolor{red}{w_1}]$$
+, where $*$ is the convolution operator, thus a \textbf{convolutional layer}.
+\end{center}
+\end{frame}
+
+\begin{frame}
+\frametitle{Motivation (or rather a justification)}
+\begin{figure}[ht]
+        \begin{minipage}[b]{0.45\linewidth}
+            \centering
+            \includegraphics[width=0.62\textwidth]{figures/towards_cnns_2.pdf}
+            
+            \small{sparse connectivity\\~\
+            \textbf{motivation}: the features appear locally}
+        \end{minipage}
+        \hspace{0.1cm}
+        \begin{minipage}[b]{0.45\linewidth}
+            \centering
+            \includegraphics[width=0.6\textwidth]{figures/towards_cnns_3.pdf}
+            
+            \small{shared weights\\~\
+            \textbf{motivation}: the features repeat throughout the image}
+        \end{minipage}
+ \end{figure}
+\end{frame}
+
+\begin{frame}
+\frametitle{Towards convolutional neural networks in 2D}
+\begin{center}
+\includegraphics[width=0.75\textwidth]{figures/cnn_1.pdf} \\
+\end{center}
+\end{frame}
+
+\begin{frame}
+\frametitle{Towards convolutional neural networks in 2D}
+\begin{center}
+\includegraphics[width=0.75\textwidth]{figures/cnn_2.pdf} \\
+\end{center}
+\end{frame}
+
+\begin{frame}
+\frametitle{Towards convolutional neural networks in 2D}
+\begin{center}
+\includegraphics[width=0.75\textwidth]{figures/cnn_3.pdf} \\
+\end{center}
+\end{frame}
+
+\begin{frame}
+\frametitle{Towards convolutional neural networks in 2D}
+\begin{center}
+\includegraphics[width=0.75\textwidth]{figures/cnn_4.pdf} \\
+\end{center}
+\end{frame}
+
+\begin{frame}
+\frametitle{Towards convolutional neural networks in 2D}
+\begin{center}
+\includegraphics[width=0.75\textwidth]{figures/cnn_5.pdf} \\
+\end{center}
+\end{frame}
+
+\begin{frame}
+\frametitle{Towards convolutional neural networks in 2D}
+\begin{center}
+\includegraphics[width=0.75\textwidth]{figures/cnn_6.pdf} \\
+\end{center}
+\end{frame}
+
+\begin{frame}
+\frametitle{Adding a second feature map}
+\begin{center}
+\includegraphics[width=0.75\textwidth]{figures/2_layer_cnn_1.pdf} \\
+\end{center}
+\end{frame}
+
+\begin{frame}
+\frametitle{Adding a second feature map}
+\begin{center}
+\includegraphics[width=0.75\textwidth]{figures/2_layer_cnn_2.pdf} \\
+\end{center}
+\end{frame}
+
+\begin{frame}
+\frametitle{Adding a second feature map}
+\begin{center}
+\includegraphics[width=0.75\textwidth]{figures/2_layer_cnn_3.pdf} \\
+\end{center}
+\end{frame}
+
+\begin{frame}
+\frametitle{Convolution with padding}
+\begin{center}
+  \animategraphics[loop,controls,width=0.45\linewidth]{3}{figures/same_padding_no_strides/same_padding_no_strides-}{0}{12}
+\end{center}
+\vfill
+\tiny{Figure source: https://github.com/vdumoulin/conv\_arithmetic}
+\end{frame}
+
+\begin{frame}
+\frametitle{Computing the output size}
+\begin{center}
+  \animategraphics[loop,controls,width=0.3\linewidth]{3}{figures/same_padding_no_strides/same_padding_no_strides-}{0}{12}
+\end{center}
+
+\small{$$\text{output size} = \frac{\text{input size} - \text{kernel size} + 2 \times \text{padding}}{\text{stride}} + 1$$}
+
+In this example: input size = 5, kernel size = 3, padding = 1, stride = 1. The output size is $(5 - 3 + 2\times1)/1 + 1 = 5$.
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Motivation (or rather justification) for CNNs}
+The features of interest can appear at different locations in the image. \\~\
+\begin{center}
+\includegraphics[width=0.75\textwidth]{figures/mitoses_translation.pdf} \\
+\end{center}
+\end{frame}
+
+\begin{frame}
+\frametitle{Kernels and feature maps}
+\begin{center}
+\includegraphics[width=0.75\textwidth]{figures/kernels_and_feature_maps_1.pdf} \\
+\end{center}
+\end{frame}
+
+\begin{frame}
+\frametitle{Kernels and feature maps}
+\begin{center}
+\includegraphics[width=0.75\textwidth]{figures/kernels_and_feature_maps_2.pdf} \\
+\end{center}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Motivation (or rather a consequence) for deep CNNs}
+The network learns low-level features in the first layers, and builds up towards more complex features in the deeper layers: intensity $\rightarrow$ edges and colour blobs $\rightarrow$ junctions $\rightarrow$ shapes $\rightarrow$ etc. \\~\
+\begin{center}
+\includegraphics[width=0.75\textwidth]{figures/cnn_nvidia.png} \\
+\end{center}
+\vfill
+\tiny{Figure source: nvidia.com}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Equivariance and invariance to translation}
+The convolutional layers are \textbf{equivariant with translation}: as the input is translated, the output is translated in a predictable manner. \\~\
+
+\pause
+A desired property of neural networks for classification is \textbf{invariance}: as the input is translated, the output remains the same. \\~\
+
+Partial translational invariance of CNNs is achieved with the max-pooling operator.\\~\
+
+\tiny{Note: there are other types of invariance e.g. rotational.}
+\end{frame}
+
+\begin{frame}
+\frametitle{Max-pooling}
+\begin{center}
+  \animategraphics[loop,controls,width=0.6\linewidth]{1}{figures/maxpool_animation/maxpool_animation-}{0}{3}
+\end{center}
+A max-pool with a $2\times2$ kernel stride and size 2 (most common form) will reduce the image size by 2 in each dimension (a useful side-effect).
+\end{frame}
+
+\begin{frame}
+\frametitle{A ``typical'' CNN architecture for 2D image classification}
+Note that the convolution is a linear operation so non-linearities (such as ReLU) are still needed.
+\begin{center}
+\begin{center}
+\includegraphics[width=0.95\textwidth]{figures/nn.pdf} \\~\
+\end{center}
+\end{center}
+\end{frame}
+
+\begin{comment}
+
+\begin{frame}
+\frametitle{Training CNNs}
+\begin{center}
+\includegraphics[width=0.75\textwidth]{figures/mnist_example.png} \\~\
+\href{https://cs.stanford.edu/people/karpathy/convnetjs/demo/mnist.html}{Example} by Andrej Karpathy.
+\end{center}
+\end{frame}
+
+\end{comment}
+
+
+\begin{frame}
+\frametitle{Summary}
+\begin{itemize}
+    \item Compared to fully connected neural networks, convolutional neural networks have sparse connectivity and weight sharing, which makes them suitable for image data.
+\end{itemize}
+\end{frame}
+
+\end{document}

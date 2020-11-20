@@ -1,0 +1,483 @@
+\documentclass[notes]{beamer}          % print frame + notes
+%\documentclass[notes=only]{beamer}     % only notes
+%\documentclass{beamer}                 % only frames
+
+\usecolortheme{beaver}
+
+% Some commonly used packages
+% (copied mainly from the Utrecht University theme: https://www.overleaf.com/project/5c900fa3bd9930036341116a)
+\usepackage{ragged2e}  % `\justifying` text
+\usepackage{booktabs}  % Tables
+\usepackage{tabularx}
+\usepackage{tikz}      % Diagrams
+\usetikzlibrary{calc, shapes, backgrounds}
+\usepackage{amsmath, amssymb, amsfonts, amsthm}
+\usepackage{url}       % `\url`s
+\usepackage{listings}  % Code listings
+\usepackage{comment}
+\usepackage{mathtools}
+\usepackage{graphicx}
+\usepackage{subfig}
+\usepackage{bm}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+}
+
+% Mainly math commands
+\newcommand{\vect}[1]{\bm{#1}}
+\usepackage{amsfonts}% to get the \mathbb alphabet
+\newcommand{\field}[1]{\mathbb{#1}}
+\newcommand{\C}{\field{C}}
+\newcommand{\R}{\field{R}}
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+\newcommand{\argmin}{\operatornamewithlimits{argmin}}
+\providecommand{\abs}[1]{\lvert#1\rvert}
+\providecommand{\norm}[1]{\lVert#1\rVert}
+
+% A variable used to exclude slides from the lecture version
+\newif\iffull
+\fullfalse
+%\fulltrue
+
+% Bibliography
+\usepackage[uniquename=init,giveninits=true,maxcitenames=1,style=authortitle-comp]{biblatex}
+\bibliography{lectures/references}
+
+%Information to be included in the title page:
+\title{From linear models to deep neural networks}
+\subtitle{Deep learning course for industry }
+\author{Mitko Veta}
+\institute{Eindhoven University of Technology
+
+Department of Biomedical Engineering}
+\date{2020}
+ 
+ 
+ 
+\begin{document}
+ 
+\frame{\titlepage}
+
+
+\begin{frame}
+\frametitle{Learning goals}
+\begin{itemize}
+    \item Introduce a linear model for classification.
+    \item Demonstrate how linear classification models can be combined to produce more complex decision boundaries. 
+    \item Introduce the layered view of neural networks.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Previously: linear model for regression}
+\begin{center}
+\includegraphics[width=0.75\textwidth]{figures/linear_regression.pdf} \\
+$\hat{y} = \hat{w_0} + \sum_{j=1}^{p} x_j \hat{w_j}$
+\end{center}
+\textbf{Question:} Can this model be used for classification (e.g. binary classification)?
+\end{frame}
+
+\begin{frame}
+\frametitle{Linear regression for a binary target}
+\begin{center}
+\includegraphics[width=0.75\textwidth]{figures/linear_regression_01_error.pdf} \\
+$\hat{y} = \hat{w_0} + \sum_{j=1}^{p} x_j \hat{w_j}$
+\end{center}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Towards a linear model for classification}
+
+\begin{center}
+$\hat{y} = \hat{w_0} + \sum_{j=1}^{p} x_j \hat{w_j}$ \\~\
+\end{center}
+
+The following changes need to be made to the linear model:
+\begin{itemize}
+  \item Instead of directly predicting the value $\hat{y}$ (which is not continuous value), predict the probability that the sample belongs to one of the classes, e.g. $p(y_i = 1 \vert \mathbf{x}_i)$.
+  \pause
+  \item $p(y_i = 1 \vert \mathbf{x}_i)$ is a continuous value, however, it is bounded between 0 an 1. 
+  \item In order to interpret is as a probability, $\hat{w_0} + \sum_{j=1}^{p} x_j \hat{w_j}$  has to be ``squashed'' between 0 and 1.
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{The sigmoid function}
+\begin{center}
+$\sigma(a) = \frac{1}{1 + e^{-a}}$ \\~\
+
+\includegraphics[width=0.85\textwidth]{figures/sigmoid.png} \\
+\end{center}
+\end{frame}
+
+\begin{frame}
+\frametitle{Logistic regression: a linear model for classification}
+
+
+\begin{center}
+Linear regression:
+$\hat{y} = \hat{w_0} + \sum_{j=1}^{p} x_j \hat{w_j}$ \\~\
+\end{center}
+
+\begin{center}
+Logistic regression:
+$p(y_i = 1 \vert \mathbf{x}_i) = \sigma(\hat{w_0} + \sum_{j=1}^{p} x_j \hat{w_j})$ \\~\
+\end{center}
+\end{frame}
+
+\iffull
+\begin{frame}
+\frametitle{Logistic regression: another view}
+
+\begin{center}
+The log-odds that the sample belongs to class ``1'' are modelled with a linear model: \\~\
+
+$log(\frac{p(y_i = 1 \vert \mathbf{x}_i)}{p(y_i = 0 \vert \mathbf{x}_i)}) = \hat{w_0} + \sum_{j=1}^{p} x_j \hat{w_j}$ \\~\
+
+$log(\frac{p(y_i = 1 \vert \mathbf{x}_i)}{1 - p(y_i = 1 \vert \mathbf{x}_i)}) = \hat{w_0} + \sum_{j=1}^{p} x_j \hat{w_j}$ \\~\
+
+\end{center}
+\end{frame}
+\fi
+
+\begin{frame}
+\frametitle{Logistic regression: a linear model for classification}
+\begin{center}
+Logistic regression produces a linear decision boundary: \\~\
+
+\includegraphics[width=0.9\textwidth]{figures/logistic_regression_boundary.png} \\
+\end{center}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Fitting logistic regression}
+
+Given a training dataset $\{\mathbf{x}_i, y_i\}$, the parameters $\mathbf{w}$ of the logistic regression model can be estimated by minimising the negative log-likelihood (NLL) of the prediction $p(y_i = 1 \vert \mathbf{x}_i)$: 
+
+$$ J(\mathbf{w}) = -\sum_{i}^{N} \log \left [ p(y_i = 1 \vert \mathbf{x}_i, \mathbf{w})^{y_i} p(y_i = 0 \vert \mathbf{x}_i, \mathbf{w})^{1-y_i} \right ]$$
+$$\hat{\mathbf{w}} =  \argmin_{\mathbf{w}} J(\mathbf{w}) $$ \\~\
+
+This is, in fact, equivalent to minimising the cross-entropy between the predictions  $p(y_i = 1 \vert \mathbf{x}_i)$ and the ground truth $y_i$.
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Gradient descent}
+
+Compared to linear regression and the residual sum of squares function, in the case of logistic regression there is no closed-form solution for the parameters that minimise the NLL. \\~\
+
+The optimal parameters are found with a numerical procedure called gradient descent.
+
+\begin{center}
+\includegraphics[width=0.65\textwidth]{figures/gradient_descent.pdf} \\
+\end{center}
+\end{frame}
+
+\begin{frame}
+\frametitle{Gradient descent}
+
+The gradient descent algorithm:
+\begin{itemize}
+  \item Initialise the parameters $\mathbf{w}$ to some random values.
+  \item While some stopping criterion is not met (e.g. maximum number of iterations):
+  \begin{itemize}
+    \item Compute the gradient $\nabla_\mathbf{w} J(\mathbf{w})$.
+    \item Update the current estimate of the parameters in the direction opposite of the gradient (in order to move towards the minimum of the function): $\mathbf{w} \leftarrow \mathbf{w} - \mu \nabla_\mathbf{w} J(\mathbf{w})$
+  \end{itemize}
+  \end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Gradient descent}
+\begin{center}
+\includegraphics[width=0.45\textwidth]{figures/gradient_descent.png} \\
+\end{center}
+\vfill
+\tiny{Figure source: deeplearningbook.org}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Learning rate}
+The choice of the learning rate $\mu$ is crucial. 
+\begin{center}
+\includegraphics[width=0.85\textwidth]{figures/learning_rate.png} \\
+\end{center}
+\end{frame}
+
+\begin{frame}
+\frametitle{Stochastic gradient descent}
+Note that in order to compute $\nabla_\mathbf{w} J(\mathbf{w})$, the output of the model for all $N$ training samples needs to be computed. \\~\
+
+This is computationally challenging in case of large number of training samples. \\~\
+
+Solution: estimate $\nabla_\mathbf{w} J(\mathbf{w})$ based on a smaller number of training samples $N^\prime << N$. \\~\
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Stochastic gradient descent}
+The algorithm is called stochastic gradient descent (SGD). \\~\
+
+Each iteration of the gradient descent algorithm, a random subset of $N^\prime$ training samples is sampled from the entire training set. \\~\
+
+$N^\prime$ is called the \textbf{batch size}. 
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Stochastic gradient descent with momentum}
+A common variant of SGD is SGD with momentum.\\~\
+
+Intuition: add speed in the average direction. This variant often converges a lot faster than regular SGD. 
+
+$$ \nu \leftarrow \alpha \nu - \mu \nabla_\mathbf{w} J(\mathbf{w}) $$
+$$ \mathbf{w} \leftarrow \mathbf{w} + \nu$$
+
+\begin{center}
+\includegraphics[width=0.85\textwidth]{figures/momentum.png} \\
+\end{center}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Softmax regression}
+The extension of logistic regression to multi-class problem (more than two classes) is straightforward and it is called softmax regression. \\~\
+
+Essentially, for $C$ number of classes, $C$ number of linear models are and are converted to probabilities using the softmax function:
+
+$$ p(y = i \vert \mathbf{x}) = \frac{e^{\mathbf{x}^\intercal\mathbf{w}_i}}{\sum_{k}^{C} e^{\mathbf{x}^\intercal\mathbf{w}_k}} $$
+\end{frame}
+
+
+\begin{frame}
+\frametitle{The AND classification problem}
+\begin{center}
+\includegraphics[width=0.85\textwidth]{figures/AND.png} \\
+\end{center}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{The AND classification problem: logistic regression}
+\begin{center}
+\includegraphics[width=0.85\textwidth]{figures/AND_logistic.png} \\
+\end{center}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{The XOR classification problem}
+\begin{center}
+\includegraphics[width=0.85\textwidth]{figures/XOR.png} \\
+\end{center}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{The XOR classification problem: logistic regression}
+\begin{center}
+\includegraphics[width=0.85\textwidth]{figures/XOR_logistic.png} \\
+\end{center}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{The XOR classification problem: LR + polynomial transformation}
+\begin{center}
+$\mathbf{x}_i = [x_1, x_2] \rightarrow \tilde{\mathbf{x}}_i = [x_1, x_2, x_1^2, x_2^2, x_1 x_2]$ \\~\
+
+\includegraphics[width=0.85\textwidth]{figures/XOR_logistic_poly.png} \\
+\end{center}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Feature transformation}
+Prior to 2010, most of the work on machine learning involved \textit{relatively} simple classifiers in combination with extensive, ``manual'' feature engineering. 
+
+\begin{center}
+\includegraphics[width=0.45\textwidth]{figures/mitosis_features.png} \\
+\vfill
+\end{center}
+\tiny{Figure source: Veta et al. SPIE MI 2012}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{A change of paradigm}
+Feed \textbf{raw} (or minimally processed) images directly to the machine learning models. Design the models in such a way that they can \textbf{learn the needed feature transformations} directly from the image data.
+\end{frame}
+
+\begin{frame}
+\frametitle{The XOR classification problem}
+\begin{center}
+\includegraphics[width=0.85\textwidth]{figures/XOR.png} \\
+\end{center}
+\textbf{Question:} How can the logistic regression classifier be modified to solve the XOR problem without explicit feature transformation? \\~\
+\end{frame}
+
+\begin{frame}
+\frametitle{Combining two linear classifiers}
+\textbf{Answer:} Use two logistic regression classifiers.
+\begin{center}
+\includegraphics[width=0.85\textwidth]{figures/XOR_nn.png} \\
+\end{center}
+\end{frame}
+
+\begin{frame}
+\frametitle{A graphical view of linear and logistic regression}
+\begin{center}
+\includegraphics[width=0.85\textwidth]{figures/linear_reg_fig.pdf} \\
+\end{center}
+\pause
+\begin{center}
+\includegraphics[width=0.85\textwidth]{figures/log_reg_fig.pdf} \\
+\end{center}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Combining two linear classifiers}
+\begin{center}
+\includegraphics[width=0.95\textwidth]{figures/nn_fig.pdf} \\
+\end{center}
+\pause
+\begin{center}
+This is a (small) feedforward neural network. 
+\end{center}
+\pause
+
+It is a composition of two functions $\mathbf{h}(\mathbf{x})$ and $f(\mathbf{x})$.  $\mathbf{h}(\mathbf{x})$ is called a hidden layer. It can be seen as a \textbf{learned} feature representation of $\mathbf{x}$ (analogous to the hand-crafted features $\mathbf{\tilde x} $).
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Combining two linear classifiers}
+\begin{center}
+\includegraphics[width=0.85\textwidth]{figures/nn_no_sigmoid_fig.pdf} \\
+\end{center}
+Often the sigmoid nonlinarity is not depicted in graphical representations (but it is there, and as shown later, it is crucial). 
+
+\end{frame}
+
+\begin{frame}
+\frametitle{A somewhat more difficult problem}
+\begin{center}
+\includegraphics[width=0.85\textwidth]{figures/bullseye.png} \\
+\end{center}
+\end{frame}
+
+\begin{comment}
+
+\begin{frame}
+\frametitle{A somewhat more difficult problem}
+\begin{center}
+\includegraphics[width=0.85\textwidth]{figures/bullseye.png} \\
+\end{center}
+\begin{center}
+\href{http://bit.ly/393Wf4I}{Example} in Tensorflow Playground.
+\end{center}
+\end{frame}
+
+\end{comment}
+
+
+\begin{frame}
+\frametitle{Why do we need nonlinearities}
+\begin{center}
+\includegraphics[width=0.95\textwidth]{figures/nn_fig.pdf} \\
+\end{center}
+
+Without the nonlinearities, the network will be a linear combination of linear combinations of the input features, which collapses to a linear combination of the input features. \\~\
+
+In other words, it will be no different than just logistic regression. \textbf{The network has no depth.}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{The ReLU nonlinearity}
+\begin{center}
+\includegraphics[width=0.65\textwidth]{figures/relu.png} \\
+\end{center}
+Instead of a sigmoid, the recommended default nonlinearity in modern neural network is the rectified linear unit. Because rectified linear units are nearly linear, they preserve many of the properties that make linear models easy to optimise with gradient-based methods.\\~\
+
+\tiny{Figure from: deeplearningbook.org}
+\end{frame}
+
+\begin{frame}
+\frametitle{An even more difficult problem}
+\begin{center}
+\includegraphics[width=0.85\textwidth]{figures/spiral.png} \\
+\end{center}
+\end{frame}
+
+\begin{frame}
+\frametitle{Multilayer neural networks}
+\begin{center}
+\includegraphics[width=0.85\textwidth]{figures/multilayer_nn.pdf} \\
+\end{center}
+\end{frame}
+
+\begin{comment}
+
+\begin{frame}
+\frametitle{An even more difficult problem}
+\begin{center}
+\includegraphics[width=0.85\textwidth]{figures/spiral.png} \\
+\end{center}
+\begin{center}
+\href{http://bit.ly/2RQY9zC}{Example} in Tensorflow Playground.
+\end{center}
+\end{frame}
+
+\end{comment}
+
+\begin{frame}
+\frametitle{The layered view of neural networks}
+\begin{center}
+\includegraphics[width=0.85\textwidth]{figures/nn_layers.pdf} \\
+\end{center}
+The neural network can be seen as a composition of the different layers: $f_d(\ldots f_2(f_1(\mathbf{x})))$. In modern deep learning frameworks layers (not neurons) are considered the basic building blocks. \\~\
+
+
+The number of layers ``d'' is called the \textbf{depth} of the network. This is where the ``deep'' on deep learning comes from.
+\end{frame}
+
+
+\begin{comment}
+
+\begin{frame}
+\frametitle{The layered view of neural networks}
+\begin{center}
+\includegraphics[width=0.85\textwidth]{figures/nn_layers_training.pdf} \\
+\end{center}
+Layered view of a neural network at training time.
+\end{frame}
+
+\end{comment}
+
+\begin{frame}
+\frametitle{Summary}
+\begin{itemize}
+    \item The linear regression model can be extended to a logistic regression model for classification by appending a sigmoid nonlinearity (the model then is set to predicts the probability of a class membership). 
+    \item Simple linear classifiers such as logistic regression can be combined in neural networks that can solve more complex problems.
+    \item In modern deep learning frameworks layers (not In modern deep learning frameworks layers (not neurons) are considered the basic building blocks.
+\end{itemize}
+\end{frame}
+
+\end{document}
