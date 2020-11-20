@@ -4,9 +4,9 @@ All course materials were prepared by [Mitko Veta](https://scholar.google.nl/cit
 
 ### Theory
 
-* [Machine learning fundamentals](lectures/Half-day - Machine%20learning%20fundamentals.pdf)
-* [From linear models to deep neural networks](lectures/Half-day - Deep%20neural%20networks.pdf)
-* [Convolutional neural networks](lectures/Half-day - Convolutional%20neural%20networks.pdf)
+* [Machine learning fundamentals](lectures/Half-day%20-%20Machine%20learning%20fundamentals.pdf)
+* [From linear models to deep neural networks](lectures/Half-day%20-%20Deep%20neural%20networks.pdf)
+* [Convolutional neural networks](lectures/Half-day%20-%20Convolutional%20neural%20networks.pdf)
 
 ### Practice
 
