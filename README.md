@@ -10,7 +10,7 @@ All course materials were prepared by [Mitko Veta](https://scholar.google.nl/cit
 
 ### Practice
 
-* Training neural networks in your web browser
+* Training neural networks in your web browser using [Tensorflow playground](http://playground.tensorflow.org/)
 
 # Two-day version
 
