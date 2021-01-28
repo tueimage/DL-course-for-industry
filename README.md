@@ -52,6 +52,7 @@ Some other resources that you might find useful after completing this course or 
 ## Books
 * [Elements of Statistical Learning](https://web.stanford.edu/~hastie/ElemStatLearn/)
 * [Deep Learning](https://www.deeplearningbook.org/)
+* [Probabilistic Machine Learning: An Introduction](https://probml.github.io/pml-book/book1.html)
 
 ## Review papers
 * [A survey on deep learning in medical image analysis](https://www.sciencedirect.com/science/article/pii/S1361841517301135?via%3Dihub)
